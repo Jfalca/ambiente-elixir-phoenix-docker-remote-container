@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  elixir_api:
+    container_name: elixir_api
+    build: .
+    volumes:
+      - .:/home/elixir/app
+    networks:
+      - app-network
+
+  elixir_postgres:
+    container_name: elixir_postgres
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=elixir
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
